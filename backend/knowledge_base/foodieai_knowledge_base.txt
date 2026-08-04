@@ -1,0 +1,95 @@
+FoodieAI Knowledge Base
+
+Restaurant Name: FoodieAI
+
+About
+
+FoodieAI is a modern food ordering platform that allows customers to
+browse the menu, add items to the cart, place orders, and receive
+AI-powered customer support.
+
+Restaurant Hours
+
+Monday - Sunday: 10:00 AM to 10:00 PM
+
+Contact
+
+Phone: +91-9876543210 Email: support@foodieai.com
+
+Delivery Information
+
+-   Estimated delivery time: 30-45 minutes.
+-   Delivery is available within a 10 km radius.
+-   Delivery charges may vary based on distance.
+
+Payment Methods
+
+-   Cash on Delivery
+-   UPI
+-   Credit/Debit Cards
+
+Menu
+
+Burgers
+
+1.  Chicken Burger Price: ₹199 Ingredients: Chicken patty, lettuce,
+    tomato, cheese, mayonnaise, sesame bun. Calories: 520 kcal Protein:
+    35 g Allergens: Gluten, Milk
+
+2.  Veg Burger Price: ₹149 Ingredients: Veg patty, lettuce, tomato,
+    onion, cheese, burger bun. Calories: 410 kcal Protein: 15 g
+    Allergens: Gluten, Milk
+
+Pizza
+
+1.  Margherita Pizza Price: ₹299 Ingredients: Pizza dough, mozzarella
+    cheese, tomato sauce, basil. Calories: 650 kcal Protein: 22 g
+    Allergens: Gluten, Milk
+
+2.  Farmhouse Pizza Price: ₹399 Ingredients: Onion, capsicum, mushrooms,
+    tomato, mozzarella cheese. Calories: 760 kcal Protein: 25 g
+    Allergens: Gluten, Milk
+
+Wraps
+
+1.  Paneer Wrap Price: ₹249 Ingredients: Paneer, onion, capsicum,
+    cheese, tortilla. Calories: 470 kcal Protein: 20 g Allergens: Milk,
+    Gluten
+
+Drinks
+
+1.  Coca-Cola Price: ₹60
+
+2.  Fresh Lime Soda Price: ₹80
+
+Restaurant Policies
+
+-   Orders can be cancelled within 5 minutes of placement.
+-   Refunds are processed within 5-7 business days if eligible.
+-   Food cannot be returned after delivery unless the order is incorrect
+    or damaged.
+
+Frequently Asked Questions
+
+Q: Do you have vegetarian options? A: Yes. Veg Burger, Paneer Wrap, and
+Margherita Pizza are vegetarian.
+
+Q: Which dishes are high in protein? A: Chicken Burger and Farmhouse
+Pizza.
+
+Q: Which items contain gluten? A: Burgers, pizzas, and wraps.
+
+Q: Which items contain milk? A: Cheese-based menu items including
+burgers, pizzas, and paneer wrap.
+
+Q: What payment methods are accepted? A: Cash on Delivery, UPI, and
+Cards.
+
+Q: What are your delivery hours? A: Daily from 10:00 AM to 10:00 PM.
+
+AI Assistant Instructions
+
+Answer only using the information available in this knowledge base. If
+the answer is unavailable, politely inform the user that the information
+is not available. Do not invent menu items, prices, ingredients, or
+policies.
