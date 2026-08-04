@@ -2,7 +2,6 @@ import re
 import requests
 from flask import current_app
 from backend.models import db, KBDocument, Food
-import numpy as np
 
 # Simple Vector Search using TF-IDF (avoiding complex dependencies while keeping search fully semantic/content-based)
 def chunk_text(text, max_chars=800, overlap=150):
