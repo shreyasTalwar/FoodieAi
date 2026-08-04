@@ -1,4 +1,4 @@
-import os
+import os # reload trigger
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
@@ -19,19 +19,29 @@ def create_app():
     app.config.from_object(Config)
     
     # Enforce MySQL database check and auto-create database if not exists
+    from urllib.parse import urlparse, unquote
+    db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+    parsed = urlparse(db_uri)
+    
+    db_user = parsed.username
+    db_password = unquote(parsed.password) if parsed.password else ''
+    db_host = parsed.hostname
+    db_port = parsed.port or 3306
+    db_name = parsed.path.lstrip('/')
+    
     import pymysql
     conn = pymysql.connect(
-        host=Config.DB_HOST,
-        user=Config.DB_USER,
-        password=Config.DB_PASSWORD,
-        port=int(Config.DB_PORT),
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        port=int(db_port),
         connect_timeout=5
     )
     cursor = conn.cursor()
-    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {Config.DB_NAME}")
+    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
     cursor.close()
     conn.close()
-    print(f"Strict MySQL Check: Successfully verified connection to server and database '{Config.DB_NAME}'")
+    print(f"DB CONNECTION VERIFIED: URI={app.config['SQLALCHEMY_DATABASE_URI']}")
     
     # Enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -272,6 +282,7 @@ def seed_data():
         if not existing:
             index_document(doc['filename'], doc['content'])
 
+app = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True, port=5000)
