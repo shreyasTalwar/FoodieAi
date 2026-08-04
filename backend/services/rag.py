@@ -84,6 +84,13 @@ def get_similar_contexts(query, top_n=4):
             # Boost if food name is in query
             if candidate['food'].name.lower() in query.lower():
                 boost += 10
+            
+            # Boost vegetarian options if the query asks for veg/vegetarian/vegan items
+            if any(w in query_words for w in ['vegetarian', 'veg', 'vegan']):
+                meat_keywords = ['chicken', 'patty', 'patties', 'meat', 'fish', 'mutton', 'pork', 'beef', 'egg']
+                is_veg = not any(mk in candidate['food'].name.lower() or mk in candidate['food'].ingredients.lower() for mk in meat_keywords)
+                if is_veg:
+                    boost += 15
         
         score = tf + boost
         scores.append((score, candidate))
