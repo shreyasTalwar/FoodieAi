@@ -10,12 +10,13 @@ ai_bp = Blueprint('ai', __name__)
 def chat():
     data = request.get_json() or {}
     message = data.get('message')
+    history = data.get('history') or []
     api_key = data.get('api_key') or request.headers.get('X-Openrouter-Api-Key')
     
     if not message:
         return jsonify({'message': 'Query message required'}), 400
         
-    response_text = query_rag(message, api_key=api_key)
+    response_text = query_rag(message, api_key=api_key, history=history)
     return jsonify({
         'reply': response_text
     }), 200

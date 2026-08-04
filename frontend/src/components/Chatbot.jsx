@@ -28,13 +28,26 @@ const Chatbot = () => {
     
     // Add user message
     const userMsg = { id: Date.now(), text: msgText, sender: 'user' };
-    setMessages(prev => [...prev, userMsg]);
-    if (!textToSend) setInput('');
     
+    // We capture the current messages plus the new user message to map them as history
+    setMessages(prev => {
+      const updated = [...prev, userMsg];
+      
+      // Call API inside useEffect or asynchronously using state
+      return updated;
+    });
+    
+    if (!textToSend) setInput('');
     setIsLoading(true);
     
     try {
-      const response = await api.post('/chat', { message: msgText });
+      // Map current messages to history format
+      const history = messages.map(m => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text
+      }));
+      
+      const response = await api.post('/chat', { message: msgText, history });
       const botMsg = { id: Date.now() + 1, text: response.data.reply, sender: 'bot' };
       setMessages(prev => [...prev, botMsg]);
     } catch (err) {

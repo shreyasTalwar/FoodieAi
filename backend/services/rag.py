@@ -107,11 +107,20 @@ def get_similar_contexts(query, top_n=4):
         
     return relevant
 
-def query_rag(query, api_key=None, model=None):
+def query_rag(query, api_key=None, model=None, history=None):
     """
     Retrieves context and queries OpenRouter API.
     """
-    contexts = get_similar_contexts(query)
+    if history is None:
+        history = []
+        
+    # Combine last user message with current query for a better search match (e.g. "Do you have vegetarian options?" + "other options")
+    search_query = query
+    previous_user_msgs = [h['content'] for h in history if h['role'] == 'user']
+    if previous_user_msgs:
+        search_query = f"{previous_user_msgs[-1]} {query}"
+        
+    contexts = get_similar_contexts(search_query)
     context_str = "\n\n".join([f"Source: {c['source']}\nContent: {c['text']}" for c in contexts])
     
     system_prompt = (
@@ -125,13 +134,19 @@ def query_rag(query, api_key=None, model=None):
         "4. If a question cannot be answered using the provided context, politely suggest contacting support at support@foodieai.com."
     )
     
+    # Construct conversational message history
+    messages = [{"role": "system", "content": system_prompt}]
+    for h in history[-6:]:
+        messages.append({"role": h['role'], "content": h['content']})
+        
     user_prompt = f"Context:\n{context_str}\n\nUser Question: {query}\n\nAnswer:"
+    messages.append({"role": "user", "content": user_prompt})
     
     api_key = api_key or current_app.config['OPENROUTER_API_KEY']
     model = model or current_app.config['OPENROUTER_MODEL']
     
     if not api_key:
-        # Fallback to local rule-based response if no key is configured
+        # Fallback to local response
         return generate_local_response(query, contexts)
         
     try:
@@ -143,10 +158,7 @@ def query_rag(query, api_key=None, model=None):
             },
             json={
                 "model": model,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
+                "messages": messages,
                 "max_tokens": 500
             },
             timeout=10
