@@ -78,7 +78,7 @@ const Chatbot = () => {
 
       {/* Chat window */}
       {isOpen && (
-        <div className="w-96 max-w-[calc(100vw-2rem)] h-[500px] rounded-2xl glass-panel flex flex-col shadow-2xl overflow-hidden border border-white/10">
+        <div className="w-96 max-w-[calc(100vw-2rem)] h-[500px] rounded-2xl bg-[#111827] flex flex-col shadow-2xl overflow-hidden border border-white/10">
           {/* Header */}
           <div className="p-4 bg-gradient-to-r from-rose-600 to-rose-700 flex items-center justify-between">
             <div className="flex items-center gap-3">
