@@ -19,6 +19,11 @@ def create_app():
     app.config.from_object(Config)
     
 
+    import os
+    print("=" * 60)
+    print("ENV DATABASE_URL:", os.getenv("DATABASE_URL"))
+    print("SQLALCHEMY_DATABASE_URI:", app.config["SQLALCHEMY_DATABASE_URI"])
+    print("=" * 60)
     
     # Enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -35,12 +40,14 @@ def create_app():
     app.register_blueprint(ai_bp, url_prefix='/api')
     
     # Create tables and seed data
+    import traceback
     with app.app_context():
         try:
             db.create_all()
             seed_data()
         except Exception as e:
             print(f"Error creating database tables: {e}")
+            traceback.print_exc()
             
     @app.route('/')
     def index():
