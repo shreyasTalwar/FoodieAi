@@ -55,8 +55,8 @@ FoodieAI is a state-of-the-art full-stack web application designed for a premium
 ### 1. Prerequisite Configuration (.env)
 Create a file named `.env` in the `backend/` directory:
 ```env
-DATABASE_URL=mysql+pymysql://root:Admin%40123@localhost:3306/foodieai
-JWT_SECRET_KEY=jwt-super-secret-key-5678
+DATABASE_URL=mysql+pymysql://<username>:<password>@localhost:3306/foodieai
+JWT_SECRET_KEY=your_jwt_secret_key
 OPENROUTER_API_KEY=your_openrouter_api_key
 OPENROUTER_MODEL=google/gemini-2.5-flash
 ```
