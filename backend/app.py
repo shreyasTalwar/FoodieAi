@@ -16,16 +16,16 @@ from backend.services.rag import index_document
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
     import os
+    print("1:", os.getenv("DATABASE_URL"))
+    app.config.from_object(Config)
+    print("2:", Config.SQLALCHEMY_DATABASE_URI)
+    print("3:", app.config["SQLALCHEMY_DATABASE_URI"])
+    
     if os.getenv("DATABASE_URL"):
         app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-
-    import os
-    print("=" * 60)
-    print("ENV DATABASE_URL:", os.getenv("DATABASE_URL"))
-    print("SQLALCHEMY_DATABASE_URI:", app.config["SQLALCHEMY_DATABASE_URI"])
-    print("=" * 60)
+        
+    print("4:", app.config["SQLALCHEMY_DATABASE_URI"])
     
     # Enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
