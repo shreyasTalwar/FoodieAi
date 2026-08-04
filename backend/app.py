@@ -18,30 +18,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # Enforce MySQL database check and auto-create database if not exists
-    from urllib.parse import urlparse, unquote
-    db_uri = app.config['SQLALCHEMY_DATABASE_URI']
-    parsed = urlparse(db_uri)
-    
-    db_user = parsed.username
-    db_password = unquote(parsed.password) if parsed.password else ''
-    db_host = parsed.hostname
-    db_port = parsed.port or 3306
-    db_name = parsed.path.lstrip('/')
-    
-    import pymysql
-    conn = pymysql.connect(
-        host=db_host,
-        user=db_user,
-        password=db_password,
-        port=int(db_port),
-        connect_timeout=5
-    )
-    cursor = conn.cursor()
-    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
-    cursor.close()
-    conn.close()
-    print(f"DB CONNECTION VERIFIED: URI={app.config['SQLALCHEMY_DATABASE_URI']}")
+
     
     # Enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
